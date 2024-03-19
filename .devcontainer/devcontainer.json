@@ -1,0 +1,17 @@
+{
+	"name": "pLaTeX",
+	"image": "ghcr.io/tbistr/texlive-full:v1.1",
+	// "image": "texlive/texlive:latest",
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"james-yu.latex-workshop",
+				"ics.japanese-proofreading",
+				"streetsidesoftware.code-spell-checker",
+				"augustocdias.tasks-shell-input"
+			]
+    	}
+	},
+	"workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+	"workspaceFolder": "/workspace"
+}
