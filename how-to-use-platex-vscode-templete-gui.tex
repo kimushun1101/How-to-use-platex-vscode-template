@@ -42,7 +42,7 @@
 }
 \newcommand{\blue}[1]{ {\color{blue} #1} }
 
-\title{platex-vscode-template の使い方}
+\title{platex-vscode-template の使い方 \\ GUI 操作}
 \author{Shunsuke Kimura}
 \date{\today}
 
@@ -78,7 +78,7 @@
   \centering
   \includegraphics[width=0.9\linewidth]{fig/structure.png}
   \begin{tiny}
-    \rightline{owner-name は適宜ご自身のユーザ名や組織名に置き換えてお考えください（後述）．}
+    \rightline{owner-name は適宜ご自身のユーザ名や組織名に置き換えてお考えください\hyperlink{create-repo}{（後述）}．}
   \end{tiny}
   多少複雑ですが，他ソースコードの編集や管理などにも流用できる技術で構成しております．
 \end{frame}
@@ -86,42 +86,19 @@
 
 \section{(初回のみ) 環境構築}
 
-\subsection{WSL のインストール}
+\subsection{WSL と Ubuntu のインストール}
 \begin{frame}{\insertsection \thesubsection: \insertsubsection}
-  公式ページ\cite{WSL}に従う
+  Microsoft Store から Ubuntu をインストールする．
   \begin{enumerate}
-    \item PowerShell を\blue{管理者モード}で実行．
-    \item \cmdline{wsl --install} コマンドを入力．
-    \item PCを再起動．
+    \item スタートメニューから「Store」と検索すると「Microsoft Store」が見つかる．
+    \item Microsoft Store の検索窓に「Ubuntu」と検索する．
   \end{enumerate}
   \begin{columns}
-    \begin{column}{0.35\textwidth}
-        \includegraphics[width=1.0\linewidth]{fig/powershell.png}
+    \begin{column}{0.4\textwidth}
+        \includegraphics[width=1.0\linewidth]{fig/store.png}
     \end{column}
-    \begin{column}{0.55\textwidth}
-      \includegraphics[width=1.0\linewidth]{fig/wsl-install.png}
-    \end{column}
-  \end{columns}
-\end{frame}
-
-\subsection{Ubuntu のインストール}
-\begin{frame}{\insertsection \thesubsection: \insertsubsection}
-  公式ページ\cite{WSL}に従う
-  \begin{enumerate}
-    \item PowerShell を実行．今回は管理者モードでなくてよい．
-    \item \cmdline{wsl --install Ubuntu} コマンドを入力．
-    \item ユーザ名とパスワードを設定し，ログインできたら画面を閉じる．
-  \end{enumerate}
-  \vspace{5mm}
-  \begin{columns}
-    \begin{column}{0.33\textwidth}
-        \includegraphics[width=1.0\linewidth]{fig/wsl-install-ubuntu.png}
-    \end{column}
-    \begin{column}{0.33\textwidth}
-      \includegraphics[width=1.0\linewidth]{fig/ubuntu-set-user.png}
-    \end{column}
-    \begin{column}{0.33\textwidth}
-      \includegraphics[width=1.0\linewidth]{fig/ubuntu-successful.png}
+    \begin{column}{0.4\textwidth}
+      \includegraphics[width=1.0\linewidth]{fig/store-ubuntu.png}
     \end{column}
   \end{columns}
 \end{frame}
@@ -129,19 +106,15 @@
 \subsection{\LaTeX と Git のインストール}
 \begin{frame}{\insertsection \thesubsection: \insertsubsection}
   \begin{enumerate}
-    \item Ubuntu を実行．
-    \item 以降，コマンド入力は PowerShell ではなく Ubuntu の画面に対して行う．\\ \cmdline{sudo apt update && sudo apt install texlive-full git -y} コマンドを入力．パスワードを聞かれるのでUbuntu で設定したパスワードを入力．もしインストール中に固まってしまった場合にはEnter を押せばとりあえず進む\cite{LaTeXBug}．
-    \item \cmdline{git config --global user.name "John Doe"} を\blue{自身の名前に変更して} \cmdline{git config --global user.email johndoe@example.com} を\blue{自身のアドレスに変更して}それぞれ入力\cite{GitBook}．
+    \item Ubuntu を実行．ユーザ名とパスワードを設定する．
+    \item \cmdline{sudo apt update && sudo apt install texlive-full git -y} コマンドを入力．パスワードを聞かれるので設定したパスワードを入力．もしインストール中に固まってしまった場合には Enter を押せばとりあえず進む\cite{LaTeXBug}．
   \end{enumerate}
   \begin{columns}
-    \begin{column}{0.2\textwidth}
+    \begin{column}{0.3\textwidth}
         \includegraphics[width=1.0\linewidth]{fig/start-ubuntu.png}
     \end{column}
-    \begin{column}{0.3\textwidth}
+    \begin{column}{0.45\textwidth}
       \includegraphics[width=1.0\linewidth]{fig/texlive.png}
-    \end{column}
-    \begin{column}{0.35\textwidth}
-      \includegraphics[width=1.0\linewidth]{fig/git-config.png}
     \end{column}
   \end{columns}
 \end{frame}
@@ -150,22 +123,11 @@
 \begin{frame}{\insertsection \thesubsection: \insertsubsection}
   \begin{enumerate}
     \item ブラウザで \href{https://github.com/}{https://github.com/} にアクセスして，\beamerbutton{Sign up for GitHub} から，ユーザ名やEメールアドレス，パスワードなどを設定\cite{GitHubAccount}．以降ログインした状態とする．
-    \item Ubuntu に\cmdline{ssh-keygen -t ed25519 -C "your_email@example.com"} コマンドを\blue{登録したメールアドレスに置き換えて}入力．パスフレーズを設定しない場合には何も入力せず3回Enterすればよい\cite{GitHubSSH}．
-    \item \cmdline{cat ~/.ssh/id_ed25519.pub} コマンドで出力された文字列をコピー．
-    \item ブラウザで\href{https://github.com/settings/ssh}{https://github.com/settings/ssh} にアクセスして，\beamerbutton{New SSH key} からコピーした文字列を Key にペーストして登録\cite{GitHubAccount}．Title はこの操作を行っているPC名を入力，Key type はAuthentication Key のままでOK．認証はパスワードでも良いが\cite{GitHubAuthentication}を参照．
+    \item GUI だけしか使わないこと前提でしたら SSH Key の登録はしなくて良いかも？\\（CLI (Command Line Interface) 版には書いています．）
   \end{enumerate}
   \begin{columns}
-    \begin{column}{0.25\textwidth}
+    \begin{column}{0.4\textwidth}
         \includegraphics[width=1.0\linewidth]{fig/github.png}
-    \end{column}
-    \begin{column}{0.25\textwidth}
-      \includegraphics[width=1.0\linewidth]{fig/ssh-keygen.png}
-    \end{column}
-    \begin{column}{0.25\textwidth}
-      \includegraphics[width=1.0\linewidth]{fig/cat.png}
-    \end{column}
-    \begin{column}{0.25\textwidth}
-      \includegraphics[width=1.0\linewidth]{fig/add-sshkey.png}
     \end{column}
   \end{columns}
 \end{frame}
@@ -174,9 +136,9 @@
 \begin{frame}{\insertsection \thesubsection: \insertsubsection}
   \begin{enumerate}
     \item ブラウザで\href{https://code.visualstudio.com/}{https://code.visualstudio.com/}を開き，\beamerbutton{Download for Windows} をクリックしてダウンロードできるインストーラーを実行．
-    \item インストール中に [追加タスクの選択] が求められたときは，[PATH への追加] オプションがオンになっていることを確認．
     \item インストール後に VS Code を実行して \beamerbutton{Ctrl + P} で現れるテキストボックスに \cmdline{ext install ms-vscode-remote.remote-wsl} を入力して WSL Extension を install．
   \end{enumerate}
+  \vspace*{5mm}
   \begin{columns}
     \begin{column}{0.33\textwidth}
         \includegraphics[width=1.0\linewidth]{fig/vscode.png}
@@ -192,13 +154,13 @@
 
 \section{文書作成}
 \subsection{リモート Repository の作成}
-\begin{frame}{\insertsection \thesubsection: \insertsubsection}
+\begin{frame}[label=create-repo]{\insertsection \thesubsection: \insertsubsection}
   \begin{enumerate}
     \item \href{https://github.com/kimushun1101/platex-vscode-template}{https://github.com/kimushun1101/platex-vscode-template} にアクセス．
     \item \beamerbutton{Use this template} から \beamerbutton{create a new repository} を選択
-    \item 推奨設定（あとから変更も可能）
+    \item 推奨設定は以下の通り（あとから変更も可能）
     \begin{itemize}
-      \item 共有したい場合には Owner を組織アカウントに変更．
+      \item 共有したい場合には Owner を組織アカウントに変更 \hyperlink{organization}{（後述）}．
       \item Repository name は，ディレクトリ名（フォルダ名）になります．投稿先や筆頭著者名，タイトル名の一部など識別できるものを推奨．例として \cmdline{conf2024_author} としたとして進める．
       \item Private Repository にチェックを入れる．
     \end{itemize}
@@ -214,11 +176,11 @@
 \end{frame}
 
 \subsection{ローカル Workspace の設定}
-\begin{frame}{\insertsection \thesubsection: \insertsubsection （GUI）}
+\begin{frame}{\insertsection \thesubsection: \insertsubsection}
   \begin{enumerate}
     \item VS Code で New Window を開く．ショートカットは \beamerbutton{Ctrl + Shif + N}．
     \item 左下の\beamerbutton{$><$} から \beamerbutton{Connect to WSL} をクリック．
-    \item \beamerbutton{Clone Repository} をクリック．
+    \item \beamerbutton{Clone Repository} をクリック．GitHub へのサインインを求められたら行う\cite{GitHubAuthentication}．
     \item \beamerbutton{Clone from GitHub} から今回作成した \cmdline{conf2024_author} を選択．
   \end{enumerate}
   \begin{columns}
@@ -263,7 +225,7 @@
 \subsection{(初回のみ) VS Code 拡張機能のインストール}
 \begin{frame}{\insertsection \thesubsection: \insertsubsection}
   \begin{enumerate}
-    \item VS Code の Extensions を開く．ショートカットは \beamerbutton{Ctrl + Shif + X}．
+    \item VS Code 画面左にある Extensions を開く．ショートカットは \beamerbutton{Ctrl + Shif + X}．
     \item 検索ボックス右の Filter Extensions をクリックして，\beamerbutton{recommended} を選択して出てきたものをすべてインストールする．
   \end{enumerate}
   \begin{columns}
@@ -279,7 +241,7 @@
 \subsection{編集作業}
 \begin{frame}{\insertsection \thesubsection: \insertsubsection （サンプルの確認）}
   \begin{enumerate}
-    \item VS Code で Explore を開く．ショートカットキーは \beamerbutton{Ctrl + Shift + E}．
+    \item VS Code 画面左にある Explore を開く．ショートカットキーは \beamerbutton{Ctrl + Shift + E}．
     \item sample.tex をクリックして開く．
     \item \beamerbutton{Ctrl + Alt + B} でビルド．ファイル保存時もオートビルドされる．
     \item \beamerbutton{Ctrl + Alt + V} でコンパイル済みPDFを表示．
@@ -303,7 +265,7 @@
   \begin{enumerate}
     \item 学会などから投稿先のテンプレートファイルを入手．圧縮されている場合は展開する．
     \item \beamerbutton{Ctrl + Shift + P} から \cmdline{Tasks: Run Task} を選択し，つづけて\cmdline{Open the workspace with explore} を選択．フォルダにファイルをコピーする．
-    \item 以降，前ページと同様．
+    \item ビルドしたい .tex ファイルを開きビルドする．ファイル名はsample.tex でなくても有効．
   \end{enumerate}
   \begin{columns}
     \begin{column}{0.45\textwidth}
@@ -318,11 +280,11 @@
 \subsection{バージョンの保存}
 \begin{frame}[label=git]{\insertsection \thesubsection: \insertsubsection}
   \begin{enumerate}
-    \item VS Code で Source Control を開く．ショートカットキーは \beamerbutton{Ctrl + Shift + G}．
+    \item VS Code 画面左にある Source Control を開く．ショートカットキーは \beamerbutton{Ctrl + Shift + G}．
     \item Changes から保存したいファイルを\beamerbutton{+}で追加．Staged Changes に乗せる．
     \item Message に今回の変更内容を記入．
-    \item \beamerbutton{Commit} の後，\beamerbutton{Sync Changes} でアップロード．GitHub へのサインインを求められたら行う．
-    \item ブラウザで GitHub repository ページで更新を確認．
+    \item \beamerbutton{Commit} の後，\beamerbutton{Sync Changes} でアップロード．
+    \item ブラウザで GitHub repository ページを更新するとアップロードを確認できる．
   \end{enumerate}
   \begin{columns}
     \begin{column}{0.3\textwidth}
@@ -339,13 +301,14 @@
 
 \section{共同作業}
 \subsection{(初回のみ) 組織アカウントの作成}
-\begin{frame}{\insertsection \thesubsection: \insertsubsection}
+\begin{frame}[label=organization]{\insertsection \thesubsection: \insertsubsection}
+  組織アカウントが Owner である Private Repository は，組織アカウントに紐づけられた個人アカウントのみ閲覧することができる．
   \begin{enumerate}
-    \item \href{https://github.com/}{https://github.com/} の左上にある\beamerbutton{+}から\beamerbutton{New organization}をクリック．
-    \item とりあえずは Free プランの\beamerbutton{Create a free organization}を選択する．
+    \item \href{https://github.com/}{https://github.com/} の左上にある \beamerbutton{+} から \beamerbutton{New organization} をクリック．
+    \item とりあえずは Free プランの \beamerbutton{Create a free organization} を選択する．
     \item Organization name や Eメールアドレスなどを入力して作成．
     \item \href{https://github.com/organization-name}{https://github.com/organization-name} を\blue{organization-nameを置き換えて}アクセス．
-    \item People タブから\beamerbutton{Invite member}をクリックして，メンバーを追加．
+    \item People タブから \beamerbutton{Invite member} をクリックして，メンバーを追加．
   \end{enumerate}
   \begin{columns}
     \begin{column}{0.3\textwidth}
@@ -360,7 +323,7 @@
 \subsection{変更箇所の確認}
 \begin{frame}{\insertsection \thesubsection: \insertsubsection}
   \begin{enumerate}
-    \item Source Control から \beamerbutton{Sync Changes} で，他の人が行った変更をを取り込む．
+    \item Source Control から \beamerbutton{Sync Changes} で，他の人が行った変更を取り込む．
     \item VS Code で Explore を開く．ショートカットキーは \beamerbutton{Ctrl + Shift + E}．
     \item 履歴をみたいファイルを右クリックして\beamerbutton{Git: View file history} を選択．ショートカットは \beamerbutton{Alt + H}．
     \item 対象のコミットを選択して，対象のファイルの \beamerbutton{Workspace} をクリック．
@@ -379,27 +342,28 @@
   \end{columns}
 \end{frame}
 
-\subsection{コンフリクトの解消}
+\subsection{コンフリクト（競合）の解消}
 \begin{frame}{\insertsection \thesubsection: \insertsubsection}
-  自身の変更をアップロードする前に，他の人の変更がアップロードされていた場合，自身からのアップロードはキャンセルされる．
+  自身の変更をアップロードする前に，他の人の変更がアップロードされていた場合，手元でコンフリクトを解決したコミットを作成してからアップロードする．
   \begin{enumerate}
-    \item \hyperlink{git}{バージョンの保存} の \beamerbutton{Commit} まで完了させ，Changes に何もない状態までする．
-    \begin{itemize}
-      \item 編集前の状態に戻すには \beamerbutton{曲がった矢印} で Discord Changes を行う．
-      \item 一時的に退避させたければ \beamerbutton{Stash} させる\cite{GitStash}．
-    \end{itemize}
-    \item \beamerbutton{Sync Changes} を行った際に
-    \item 履歴をみたいファイルを右クリックして\beamerbutton{Git: View file history} を選択．ショートカットは \beamerbutton{Alt + H}．
+    \item \hyperlink{git}{バージョンの保存} をした際にポップアップが出た場合，\\
+    \beamerbutton{Sync Changes} がダウンロード・アップロード両方ある状態であることが確認できる．
+    \item SOURCE CONTROL の \beamerbutton{$\cdots$} から \beamerbutton{Branch}，\beamerbutton{Marge} をクリックし，\beamerbutton{origin/main} を選択．
+    \item \beamerbutton{Accept Current Change} や \beamerbutton{Accept Incoming Change} などをクリックして，適宜追加変更する．
+    \item 編集したファイルを\beamerbutton{+}で追加，\beamerbutton{Commit} の後，\beamerbutton{Sync Changes} でアップロード．
   \end{enumerate}
   \begin{columns}
-    \begin{column}{0.3\textwidth}
-        \includegraphics[width=1.0\linewidth]{fig/git-history1.png}
+    \begin{column}{0.23\textwidth}
+        \includegraphics[width=1.0\linewidth]{fig/git-conflict.png}
     \end{column}
-    \begin{column}{0.3\textwidth}
-      \includegraphics[width=1.0\linewidth]{fig/git-history2.png}
+    \begin{column}{0.23\textwidth}
+      \includegraphics[width=1.0\linewidth]{fig/git-marge.png}
     \end{column}
-    \begin{column}{0.3\textwidth}
-      \includegraphics[width=1.0\linewidth]{fig/git-history3.png}
+    \begin{column}{0.23\textwidth}
+      \includegraphics[width=1.0\linewidth]{fig/git-editor.png}
+    \end{column}
+    \begin{column}{0.23\textwidth}
+      \includegraphics[width=1.0\linewidth]{fig/git-solve-conflict.png}
     \end{column}
   \end{columns}
 \end{frame}
@@ -410,8 +374,8 @@
   \begin{thebibliography}{99}
   \beamertemplatetextbibitems
 
-  \bibitem{WSL} WSL を使用して Windows に Linux をインストールする方法\\
-  \href{https://learn.microsoft.com/ja-jp/windows/wsl/install}{https://learn.microsoft.com/ja-jp/windows/wsl/install}
+  % \bibitem{WSL} WSL を使用して Windows に Linux をインストールする方法\\
+  % \href{https://learn.microsoft.com/ja-jp/windows/wsl/install}{https://learn.microsoft.com/ja-jp/windows/wsl/install}
 
   \bibitem{LaTeXBug} Pregenerating ConTeXt MarkIV format. This may take some time... takes forever\\
   \href{https://askubuntu.com/questions/956006/pregenerating-context-markiv-format-this-may-take-some-time-takes-forever
@@ -425,17 +389,17 @@
   \href{https://docs.github.com/ja/get-started/onboarding/getting-started-with-your-github-account
   }{https://docs.github.com/ja/get-started/onboarding/getting-started-with-your-github-account}
   
-  \bibitem{GitHubSSH} GitHub アカウントへの新しい SSH キーの追加\\
-  \href{https://docs.github.com/ja/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
-  }{https://docs.github.com/ja/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account}
+  % \bibitem{GitHubSSH} GitHub アカウントへの新しい SSH キーの追加\\
+  % \href{https://docs.github.com/ja/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
+  % }{https://docs.github.com/ja/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account}
 
   \bibitem{GitHubAuthentication} GitHub への認証方法について\\
   \href{https://docs.github.com/ja/authentication/keeping-your-account-and-data-secure/about-authentication-to-github
   }{https://docs.github.com/ja/authentication/keeping-your-account-and-data-secure/about-authentication-to-github}
 
-  \bibitem{GitStash} Git Book 7.3 Git Tools - Stashing and Cleaning\\
-  \href{https://git-scm.com/book/en/v2/Git-Tools-Stashing-and-Cleaning
-  }{https://git-scm.com/book/en/v2/Git-Tools-Stashing-and-Cleaning}
+  % \bibitem{GitStash} Git Book 7.3 Git Tools - Stashing and Cleaning\\
+  % \href{https://git-scm.com/book/en/v2/Git-Tools-Stashing-and-Cleaning
+  % }{https://git-scm.com/book/en/v2/Git-Tools-Stashing-and-Cleaning}
 
   \end{thebibliography}
 \end{frame}
