@@ -10,6 +10,12 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TEX_FILE_NAME: how-to-use-platex-vscode-templete
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}typst-jp-conf.pdf
+    permissions:
+      pages: write
+      id-token: write
 
     steps:
       - name: Checkout code
@@ -43,3 +49,13 @@ jobs:
           asset_path: ${{ env.TEX_FILE_NAME }}.pdf
           asset_name: ${{ env.TEX_FILE_NAME }}_${{ github.ref_name }}.pdf
           asset_content_type: application/pdf
+
+      - name: Compile
+        run: |
+          mkdir ./out
+          mv ${{ env.TEX_FILE_NAME }}.pdf out/${{ env.TEX_FILE_NAME }}.pdf
+      - uses: actions/upload-pages-artifact@v2
+        with:
+          path: ./out
+      - uses: actions/deploy-pages@v1
+        id: deployment
