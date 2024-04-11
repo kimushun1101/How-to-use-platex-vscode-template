@@ -92,7 +92,7 @@
   Microsoft Store から Ubuntu をインストールする．
   \begin{enumerate}
     \item スタートメニューから「Store」と検索すると「Microsoft Store」が見つかる．
-    \item Microsoft Store の検索窓に「Ubuntu」と検索する．
+    \item Microsoft Store の検索窓に「Ubuntu\footnote{もし WSL を \LaTeX しか使用しない場合には「Alpine」の方が次ページのバグを踏まないので良いかも}」と検索する．
   \end{enumerate}
   \begin{columns}
     \begin{column}{0.4\textwidth}
@@ -107,8 +107,8 @@
 \subsection{\LaTeX と Git のインストール}
 \begin{frame}{\insertsection \thesubsection: \insertsubsection}
   \begin{enumerate}
-    \item Ubuntu を実行．ユーザ名とパスワードを設定する．
-    \item \cmdline{sudo apt update && sudo apt install texlive-full git -y} コマンドを入力．パスワードを聞かれるので設定したパスワードを入力．もしインストール中に固まってしまった場合には Enter を押せばとりあえず進む\cite{LaTeXBug}．
+    \item Ubuntu を実行．ユーザ名とパスワードを設定する．{\tiny バスワードは *** などで表示されないことに注意．}
+    \item \cmdline{sudo apt update && sudo apt install texlive-full git -y} コマンドを入力．パスワードを聞かれるので設定したパスワードを入力．Ubuntu ではインストール中に固まってしまうバグがあるが Enter を何回か押せばとりあえず進む\cite{LaTeXBug}．
     \item \cmdline{git config --global user.name "John Doe"} を\blue{自身の名前（匿名可）に変更して} \cmdline{git config --global user.email johndoe@example.com} を\blue{自身のアドレスに変更して}それぞれ入力\cite{GitBook}．
   \end{enumerate}
   \begin{columns}
