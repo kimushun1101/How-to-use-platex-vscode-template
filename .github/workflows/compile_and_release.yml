@@ -12,7 +12,7 @@ jobs:
       TEX_FILE_NAME: how-to-use-platex-vscode-templete
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}typst-jp-conf.pdf
+      url: ${{ steps.deployment.outputs.page_url }}${{ env.TEX_FILE_NAME }}.pdf
     permissions:
       pages: write
       id-token: write
