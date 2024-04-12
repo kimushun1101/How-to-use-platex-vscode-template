@@ -14,6 +14,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}${{ env.TEX_FILE_NAME }}.pdf
     permissions:
+      contents: write
       pages: write
       id-token: write
 
@@ -49,13 +50,15 @@ jobs:
           asset_path: ${{ env.TEX_FILE_NAME }}.pdf
           asset_name: ${{ env.TEX_FILE_NAME }}_${{ github.ref_name }}.pdf
           asset_content_type: application/pdf
-
-      - name: Compile
+      
+      - name: Make deployment file
         run: |
-          mkdir ./out
-          mv ${{ env.TEX_FILE_NAME }}.pdf out/${{ env.TEX_FILE_NAME }}.pdf
+          mkdir ./deploy
+          mv ${{ env.TEX_FILE_NAME }}.pdf deploy/${{ env.TEX_FILE_NAME }}.pdf
+      
       - uses: actions/upload-pages-artifact@v2
         with:
-          path: ./out
+          path: ./deploy
+      
       - uses: actions/deploy-pages@v1
         id: deployment
