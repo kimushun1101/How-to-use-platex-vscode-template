@@ -89,10 +89,11 @@
 
 \subsection{WSL と Ubuntu のインストール}
 \begin{frame}{\insertsection \thesubsection: \insertsubsection}
+  この手順に関してはコマンドラインの方が楽 \hyperlink{appendix:wsl}{\beamerbutton{補足のページにジャンプ}}\\
   Microsoft Store から Ubuntu をインストールする．
   \begin{enumerate}
     \item スタートメニューから「Store」と検索すると「Microsoft Store」が見つかる．
-    \item Microsoft Store の検索窓に「Ubuntu\footnote{もし WSL を \LaTeX しか使用しない場合には「Alpine」の方が次ページのバグを踏まないので良いかも}」と検索する．
+    \item Microsoft Store の検索窓に「Ubuntu\footnote{もし WSL を \LaTeX しか使用しない場合には「Alpine WSL」の方が次ページのバグを踏まないので良いかも}」と検索する．
   \end{enumerate}
   \begin{columns}
     \begin{column}{0.4\textwidth}
@@ -422,88 +423,88 @@
   \end{thebibliography}
 \end{frame}
 
-% \section{補足}
-% \subsection*{WSL と Ubuntu のインストール}
-% \begin{frame}{\insertsection \thesubsection: \insertsubsection}
-%   Microsoft Store を使わない方法として PowerShell からのコマンドライン入力によるインストール方法もある．公式ページ\cite{WSL}に従う
-%   \begin{enumerate}
-%     \item PowerShell を\blue{管理者モード}で実行．
-%     \item \cmdline{wsl --install} コマンドを入力．
-%     \item PCを再起動．
-%   \end{enumerate}
-%   \begin{columns}
-%     \begin{column}{0.35\textwidth}
-%         \includegraphics[width=1.0\linewidth]{fig/powershell.png}
-%     \end{column}
-%     \begin{column}{0.55\textwidth}
-%       \includegraphics[width=1.0\linewidth]{fig/wsl-install.png}
-%     \end{column}
-%   \end{columns}
-% \end{frame}
+\section{補足}
+\subsection*{WSL と Ubuntu のインストール}
+\begin{frame}{\insertsection \thesubsection: \insertsubsection}\label{appendix:wsl}
+  Microsoft Store を使わない方法として PowerShell からのコマンドライン入力によるインストール方法もある．公式ページ\cite{WSL}に従う
+  \begin{enumerate}
+    \item PowerShell を\blue{管理者モード}で実行．
+    \item \cmdline{wsl --install} コマンドを入力．
+    \item PCを再起動．
+  \end{enumerate}
+  \begin{columns}
+    \begin{column}{0.3\textwidth}
+        \includegraphics[width=1.0\linewidth]{fig/powershell.png}
+    \end{column}
+    \begin{column}{0.5\textwidth}
+      \includegraphics[width=1.0\linewidth]{fig/wsl-install.png}
+    \end{column}
+  \end{columns}
+\end{frame}
 
-% \subsection*{SSH Key による GitHub へのアクセス}
-% \begin{frame}{\insertsection \thesubsection: \insertsubsection}
-%   コマンドラインから git clone を行い場合には，パスワードよりも SSH 鍵認証の方が推奨されている．
-%   \begin{enumerate}
-%     \item Ubuntu を実行．VS Code 上で
-%     \item \cmdline{git config --global user.name "John Doe"} を\blue{自身の名前に変更して} \cmdline{git config --global user.email johndoe@example.com} を\blue{自身のアドレスに変更して}それぞれ入力\cite{GitBook}．
-%   \end{enumerate}
-%   \begin{columns}
-%     \begin{column}{0.2\textwidth}
-%         \includegraphics[width=1.0\linewidth]{fig/start-ubuntu.png}
-%     \end{column}
-%     \begin{column}{0.3\textwidth}
-%       \includegraphics[width=1.0\linewidth]{fig/texlive.png}
-%     \end{column}
-%     \begin{column}{0.35\textwidth}
-%       \includegraphics[width=1.0\linewidth]{fig/git-config.png}
-%     \end{column}
-%   \end{columns}
-% \end{frame}
+\subsection*{SSH Key による GitHub へのアクセス}
+\begin{frame}{\insertsection \thesubsection: \insertsubsection}
+  コマンドラインから git clone を行い場合には，パスワードよりも SSH 鍵認証の方が推奨されている．
+  \begin{enumerate}
+    \item Ubuntu を実行．VS Code 上で
+    \item \cmdline{git config --global user.name "John Doe"} を\blue{自身の名前に変更して} \cmdline{git config --global user.email johndoe@example.com} を\blue{自身のアドレスに変更して}それぞれ入力\cite{GitBook}．
+  \end{enumerate}
+  \begin{columns}
+    \begin{column}{0.2\textwidth}
+        \includegraphics[width=1.0\linewidth]{fig/start-ubuntu.png}
+    \end{column}
+    \begin{column}{0.3\textwidth}
+      \includegraphics[width=1.0\linewidth]{fig/texlive.png}
+    \end{column}
+    \begin{column}{0.35\textwidth}
+      \includegraphics[width=1.0\linewidth]{fig/git-config.png}
+    \end{column}
+  \end{columns}
+\end{frame}
 
-% \begin{frame}{\insertsection \thesubsection: \insertsubsection }
-%   \begin{enumerate}
-%     \item \href{https://github.com/}{https://github.com/} から Clone したい Repository を探す．
-%     \item \beamerbutton{$< >$ Code▼} から \beamerbutton{SSH} タブを選択，\beamerbutton{□が２つ重なったような記号} をクリックして URL をコピー．
-%     \item Ubuntu に \cmdline{git clone URL} コマンドを\blue{コピーしたURLに置き換えて}入力．\\
-%     Are you sure you want to continue connecting? には \cmdline{yes} と答える．
-%     \item Ubuntu に \cmdline{code conf2024_kimura} コマンドを\blue{自身のrepository名に置き換えて}入力することで，VS Code を起動する．\beamerbutton{Yes, I trust the authors} をクリック．
-%     \begin{itemize}
-%       \item \cmdline{ls} コマンドをすると現在存在するディレクトリを確認できる．興味があれば「Unix コマンド」で調べてみるとよい．移動や削除など，よりいろいろな操作ができるようになるだろう．
-%       \item たとえば \cmdline{code conf[Tab]} という感じで，途中まで入力してTab キーで補完もできる．
-%     \end{itemize}
-%   \end{enumerate}
-%   \begin{columns}
-%     \begin{column}{0.25\textwidth}
-%         \includegraphics[width=1.0\linewidth]{fig/clone-url.png}
-%     \end{column}
-%     \begin{column}{0.3\textwidth}
-%       \includegraphics[width=1.0\linewidth]{fig/git-clone.png}
-%     \end{column}
-%     \begin{column}{0.3\textwidth}
-%       \includegraphics[width=1.0\linewidth]{fig/code-repo.png}
-%     \end{column}
-%   \end{columns}
-% \end{frame}
+\begin{frame}{\insertsection \thesubsection: \insertsubsection }
+  \begin{enumerate}
+    \item \href{https://github.com/}{https://github.com/} から Clone したい Repository を探す．
+    \item \beamerbutton{$< >$ Code▼} から \beamerbutton{SSH} タブを選択，\beamerbutton{□が２つ重なったような記号} をクリックして URL をコピー．
+    \item Ubuntu に \cmdline{git clone URL} コマンドを\blue{コピーしたURLに置き換えて}入力．\\
+    Are you sure you want to continue connecting? には \cmdline{yes} と答える．
+    \item Ubuntu に \cmdline{code conf2024_kimura} コマンドを\blue{自身のrepository名に置き換えて}入力することで，VS Code を起動する．\beamerbutton{Yes, I trust the authors} をクリック．
+    \begin{itemize}
+      \item \cmdline{ls} コマンドをすると現在存在するディレクトリを確認できる．興味があれば「Unix コマンド」で調べてみるとよい．移動や削除など，よりいろいろな操作ができるようになるだろう．
+      \item たとえば \cmdline{code conf[Tab]} という感じで，途中まで入力してTab キーで補完もできる．
+    \end{itemize}
+  \end{enumerate}
+  \begin{columns}
+    \begin{column}{0.25\textwidth}
+        \includegraphics[width=1.0\linewidth]{fig/clone-url.png}
+    \end{column}
+    \begin{column}{0.3\textwidth}
+      \includegraphics[width=1.0\linewidth]{fig/git-clone.png}
+    \end{column}
+    \begin{column}{0.3\textwidth}
+      \includegraphics[width=1.0\linewidth]{fig/code-repo.png}
+    \end{column}
+  \end{columns}
+\end{frame}
 
-% \section*{参考URL（補足）}
-% \begin{frame}{\insertsection}
-%   \scriptsize
-%   \begin{thebibliography}{99}
-%   \beamertemplatetextbibitems
+\section*{参考URL（補足）}
+\begin{frame}{\insertsection}
+  \scriptsize
+  \begin{thebibliography}{99}
+  \beamertemplatetextbibitems
 
-%   \bibitem{WSL} WSL を使用して Windows に Linux をインストールする方法\\
-%   \href{https://learn.microsoft.com/ja-jp/windows/wsl/install}{https://learn.microsoft.com/ja-jp/windows/wsl/install}
+  \bibitem{WSL} WSL を使用して Windows に Linux をインストールする方法\\
+  \href{https://learn.microsoft.com/ja-jp/windows/wsl/install}{https://learn.microsoft.com/ja-jp/windows/wsl/install}
   
-%   \bibitem{GitHubSSH} GitHub アカウントへの新しい SSH キーの追加\\
-%   \href{https://docs.github.com/ja/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
-%   }{https://docs.github.com/ja/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account}
+  \bibitem{GitHubSSH} GitHub アカウントへの新しい SSH キーの追加\\
+  \href{https://docs.github.com/ja/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account
+  }{https://docs.github.com/ja/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account}
 
-%   \bibitem{GitStash} Git Book 7.3 Git Tools - Stashing and Cleaning\\
-%   \href{https://git-scm.com/book/en/v2/Git-Tools-Stashing-and-Cleaning
-%   }{https://git-scm.com/book/en/v2/Git-Tools-Stashing-and-Cleaning}
+  \bibitem{GitStash} Git Book 7.3 Git Tools - Stashing and Cleaning\\
+  \href{https://git-scm.com/book/en/v2/Git-Tools-Stashing-and-Cleaning
+  }{https://git-scm.com/book/en/v2/Git-Tools-Stashing-and-Cleaning}
 
-%   \end{thebibliography}
-% \end{frame}
+  \end{thebibliography}
+\end{frame}
 
 \end{document}
